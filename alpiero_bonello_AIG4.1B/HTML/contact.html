@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My portfolio</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="Scripts/myscripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    
+</head>
+<body>
+    <h1>Contact</h1> <br>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav><br><br><br><br>
+    <h2>Contact Form</h2>
+
+    <form id="ContactForm">
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname"  required>
+        <p id="fullnameError" style="background-color: red;"></p>
+        <br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email"  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+        <p id="emailError" style="background-color: red;"></p>
+        <br>
+
+        <label for="contactnumber">Contact Number:</label>
+        <input type="text" id="contactnumber" placeholder="+356 #### ####" required>
+        <p id="contactnumberError" style="background-color: red;" ></p>
+        <br>
+
+        <label for="comment">Comment:</label>
+        <input type="text" id="comment" rows="5" comment.count="< 10"  required>
+        <p id="commentError" style="background-color: red;" ></p>
+        <br>
+
+        <button type="submit">Send</button>
+        <p id="Send"></p>
+    </form>
+    <script>
+         $(document).ready(function () {
+    $("#ContactForm").submit(function (event) {
+        event.preventDefault(); 
+
+        let isValid = true;
+
+        $("#fullnameError").text("");
+        $("#emailError").text("");
+        $("#contactnumberError").text("");
+        $("#commentError").text("");
+
+        let fullname = $("#fullname").val();
+        if (fullname.trim() === "") {
+            isValid = false;
+            $("#fullnameError").text("Full Name is required.");
+        }
+
+        let email = $("#email").val();
+        let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email)) {
+            isValid = false;
+            $("#emailError").text("Please enter a valid email address.");
+        }
+
+        let contactnumber = $("#contactnumber").val();
+        let contactnumberPattern = /^\+356\s\d{4}\s\d{4}$/;
+        if (!contactnumberPattern.test(contactnumber)) {
+            isValid = false;
+            $("#contactnumberError").text("Please enter a valid contact number in the format +356 #### ####.");
+        }
+
+        let comment = $("#comment").val();
+        if (comment.length < 10) {
+            isValid = false;
+            $("#commentError").text("Comment must be at least 10 characters long.");
+        }
+
+        if (isValid) {
+            alert("Thank you! Your message has been sent.");
+            $("#ContactForm")[0].reset();
+        }
+    });
+});
+
+    </script>
+    
+</body>
+
+</html>
